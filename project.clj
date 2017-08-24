@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.4.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
+                 [ring/ring-json "0.4.0"]
                  [environ "1.0.0"]
 		 [camel-snake-kebab "0.2.4"]]
   :min-lein-version "2.0.0"

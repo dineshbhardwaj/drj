@@ -5,6 +5,8 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
+            [ring.middleware.json :refer [wrap-json-response]]
+            [ring.util.response :refer [response]]
             [camel-snake-kebab.core :as kebab]))
 
 (defn splash []
@@ -12,24 +14,32 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-(defroutes app
-  (GET "/camel" {{input :input} :params}
-       {:status 200
-        :headers {"Content-Type" "text/plain"}
-        :body (kebab/->CamelCase input)})
-  (GET "/snake" {{input :input} :params}
-       {:status 200
-        :headers {"Content-Type" "text/plain"}
-        :body (kebab/->snake_case input)})
-  (GET "/kebab" {{input :input} :params}
-       {:status 200
-        :headers {"Content-Type" "text/plain"}
-        :body (kebab/->kebab-case input)})
-  (GET "/" []
-       (splash))
-  (ANY "*" []
-       (route/not-found (slurp (io/resource "404.html")))))
+(defn handler [request]
+  (response {:foo "bar"}))
 
+(def app
+  (wrap-json-response handler))
+
+;; addition from example 2nd 
+;;(defroutes app
+;;  (GET "/camel" {{input :input} :params}
+;;       {:status 200
+;;        :headers {"Content-Type" "text/plain"}
+;;        :body (kebab/->CamelCase input)})
+;;  (GET "/snake" {{input :input} :params}
+;;       {:status 200
+;;        :headers {"Content-Type" "text/plain"}
+;;        :body (kebab/->snake_case input)})
+;;  (GET "/kebab" {{input :input} :params}
+;;       {:status 200
+;;        :headers {"Content-Type" "text/plain"}
+;;        :body (kebab/->kebab-case input)})
+;;  (GET "/" []
+;;       (splash))
+;;  (ANY "*" []
+;;       (route/not-found (slurp (io/resource "404.html")))))
+
+;; original example
 ;;(defroutes app
 ;;  (GET "/" []
 ;;       (splash))
