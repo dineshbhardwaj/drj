@@ -15,7 +15,7 @@
    :body "Hello from Heroku"})
 
 (defn handler [request]
-  (response {displayText: "Turst me It works !!"}))
+  (response {:displayText "Turst me It works !!"}))
 
 (def app
   (wrap-json-response handler))
