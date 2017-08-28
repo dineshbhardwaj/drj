@@ -22,30 +22,30 @@
 ;;  (wrap-json-response handler))
 
 ;; addition from example 2nd 
-;;(defroutes app
-;;  (GET "/camel" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->CamelCase input)})
-;;  (GET "/snake" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->snake_case input)})
-;;  (GET "/kebab" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->kebab-case input)})
-;;  (GET "/" []
-;;       (splash))
-;;  (ANY "*" []
-;;       (route/not-found (slurp (io/resource "404.html")))))
-
-;; original example
 (defroutes app
+  (GET "/camel" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (kebab/->CamelCase input)})
+  (GET "/snake" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (kebab/->snake_case input)})
+  (GET "/kebab" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (kebab/->kebab-case input)})
   (GET "/" []
        (splash))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
+
+;; original example
+;;(defroutes app
+;;  (GET "/" []
+;;       (splash))
+;;  (ANY "*" []
+;;       (route/not-found (slurp (io/resource "404.html")))))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
