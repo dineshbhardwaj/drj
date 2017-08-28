@@ -14,12 +14,12 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-(defn handler [request]
-  (response {:speech "Turst me Deepak, It works !!"
-             :displayText "Turst me Deepak, It works !!"}))
-
-(def app
-  (wrap-json-response handler))
+;;(defn handler [request]
+;;  (response {:speech "Turst me Deepak, It works !!"
+;;             :displayText "Turst me Deepak, It works !!"}))
+;;
+;;(def app
+;;  (wrap-json-response handler))
 
 ;; addition from example 2nd 
 ;;(defroutes app
@@ -41,11 +41,11 @@
 ;;       (route/not-found (slurp (io/resource "404.html")))))
 
 ;; original example
-;;(defroutes app
-;;  (GET "/" []
-;;       (splash))
-;;  (ANY "*" []
-;;       (route/not-found (slurp (io/resource "404.html")))))
+(defroutes app
+  (GET "/" []
+       (splash))
+  (ANY "*" []
+       (route/not-found (slurp (io/resource "404.html")))))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
