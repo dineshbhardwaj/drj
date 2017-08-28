@@ -15,7 +15,7 @@
    :body "Hello from Heroku"})
 
 (defn handler [request]
-  (response {:foo "Bar"}))
+  (response {:displayText "Bar"}))
 ;;  (response {:speech "Turst me Deepak, It works !!"
 ;;             :displayText "Turst me Deepak, It works !!"}))
 
