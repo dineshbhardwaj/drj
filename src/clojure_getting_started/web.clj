@@ -14,12 +14,13 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-;;(defn handler [request]
+(defn handler [request]
+  (response {:foo "Bar"}))
 ;;  (response {:speech "Turst me Deepak, It works !!"
 ;;             :displayText "Turst me Deepak, It works !!"}))
-;;
-;;(def app
-;;  (wrap-json-response handler))
+
+(def app
+  (wrap-json-response handler))
 
 ;; addition from example 2nd 
 (defroutes app
