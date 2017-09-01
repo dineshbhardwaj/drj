@@ -14,7 +14,7 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-(load-file "response.clj")
+(load-file "./response.clj")
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
