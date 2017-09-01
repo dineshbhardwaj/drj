@@ -14,14 +14,16 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-(defn handler [request]
-;;  (response {:displayText "Bar"}))
-  (response {:speech "Turst me Deepak, It works !!"
-             :displayText "Turst me Deepak, It works !!"}))
+(load-file "response.clj")
 
-(def app
-  (wrap-json-response handler))
-
+;;(defn handler [request]
+;;;;  (response {:displayText "Bar"}))
+;;  (response {:speech "Turst me Deepak, It works !!"
+;;             :displayText "Turst me Deepak, It works !!"}))
+;;
+;;(def app
+;;  (wrap-json-response handler))
+;;
 ;; addition from example 2nd 
 ;;(defroutes app
 ;;  (GET "/camel" {{input :input} :params}
