@@ -21,7 +21,7 @@
 ;;
 ;;(def app
 ;;  (wrap-json-response handler))
-(load-file "./response")
+(load-file "/Users/Apple/clojure-getting-started/src/clojure_getting_started/response.clj")
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
