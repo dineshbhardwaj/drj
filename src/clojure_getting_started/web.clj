@@ -14,14 +14,14 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
-(defn handler [request]
-;;  (response {:displayText "Bar"}))
-  (response {:speech "Turst me Deepak, It works !!"
-             :displayText "Turst me Deepak, It works !!"}))
-
-(def app
-  (wrap-json-response handler))
-;;(load-file "./response.clj")
+;;(defn handler [request]
+;;;;  (response {:displayText "Bar"}))
+;;  (response {:speech "Turst me Deepak, It works !!"
+;;             :displayText "Turst me Deepak, It works !!"}))
+;;
+;;(def app
+;;  (wrap-json-response handler))
+(load-file "./response")
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
