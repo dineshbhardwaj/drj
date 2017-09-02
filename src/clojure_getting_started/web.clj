@@ -20,6 +20,7 @@
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
   [request]
+  (prn request)
   (def input_data (get-in request [:resolvedQuery "yes, I have read the article"]))
   (response {:speech input_data
              :displayText "Turst me user, It works !!"}))
