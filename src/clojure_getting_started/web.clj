@@ -27,8 +27,8 @@
 
 
 (def app
-  (wrap-json-body handler {:keywords? true :bigdecimals true})
-;;  (wrap-json-response handler)
+;;  (wrap-json-body handler {:keywords? true :bigdecimals true})
+  (wrap-json-response handler)
   )
 
 ;;(defn handler [request]
