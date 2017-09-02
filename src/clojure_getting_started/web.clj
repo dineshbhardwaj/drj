@@ -5,6 +5,7 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
+            [ring.middleware.json :only [wrap-json-body]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
             [camel-snake-kebab.core :as kebab]))
@@ -14,14 +15,38 @@
    :headers {"Content-Type" "text/plain"}
    :body "Hello from Heroku"})
 
+
+(defn handler [request]
+  (prn (get-in request [:body "user"]))
+  (response {:speech "Turst me user, It works !!"
+             :displayText "Turst me user, It works !!"}))
+;;  (response "Uploaded user.")
+
+
+(def app
+  (wrap-json-body handler {:keywords? true :bigdecimals? true}))
+
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
 ;;  (response {:speech "Turst me Deepak, It works !!"
 ;;             :displayText "Turst me Deepak, It works !!"}))
-;;
-;;(def app
-;;  (wrap-json-response handler))
-(load-file "/Users/Apple/clojure-getting-started/src/clojure_getting_started/response.clj")
+
+(defn process 
+  "generating different response depending on ans to 
+   if you know aricle or not"
+  [request]
+  
+  )
+;; working code for jason response (defn handler [request]
+;; working code for jason response ;;  (response {:displayText "Bar"}))
+;; working code for jason response   (process request)
+;; working code for jason response   (response {:speech "Turst me Deepak, It works !!"
+;; working code for jason response 
+;; working code for jason response (def app
+;; working code for jason response   (wrap-json-response handler))
+
+
+;;(load-file "/Users/Apple/clojure-getting-started/src/clojure_getting_started/response.clj")
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
