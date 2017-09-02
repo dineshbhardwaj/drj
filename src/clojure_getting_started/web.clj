@@ -20,7 +20,7 @@
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
   [request]
-  (prn (get-in request [:body "user"]))
+  (prn (get-in request [:resolvedQuery "user"]))
   (response {:speech "Turst me user, It works !!"
              :displayText "Turst me user, It works !!"}))
 ;;  (response "Uploaded user.")
