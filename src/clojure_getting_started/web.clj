@@ -20,14 +20,16 @@
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
   [request]
-  (prn (get-in request [:resolvedQuery "user"]))
+  (prn (get-in request [:resolvedQuery "yes, I have read the article"]))
   (response {:speech "Turst me user, It works !!"
              :displayText "Turst me user, It works !!"}))
 ;;  (response "Uploaded user.")
 
 
 (def app
-  (wrap-json-body handler {:keywords? true :bigdecimals? true}))
+  (wrap-json-body handler {:keywords? true :bigdecimals true})
+;;  (wrap-json-response handler)
+  )
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
