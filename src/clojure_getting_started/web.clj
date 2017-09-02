@@ -5,7 +5,7 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
-            [ring.middleware.json :only [wrap-json-body]
+            [ring.middleware.json :refer [wrap-json-body]]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
             [camel-snake-kebab.core :as kebab]))
@@ -16,7 +16,10 @@
    :body "Hello from Heroku"})
 
 
-(defn handler [request]
+(defn handler 
+;;   "generating different response depending on ans to 
+;;    if you know aricle or not"
+  [request]
   (prn (get-in request [:body "user"]))
   (response {:speech "Turst me user, It works !!"
              :displayText "Turst me user, It works !!"}))
@@ -31,12 +34,7 @@
 ;;  (response {:speech "Turst me Deepak, It works !!"
 ;;             :displayText "Turst me Deepak, It works !!"}))
 
-(defn process 
-  "generating different response depending on ans to 
-   if you know aricle or not"
-  [request]
-  
-  )
+
 ;; working code for jason response (defn handler [request]
 ;; working code for jason response ;;  (response {:displayText "Bar"}))
 ;; working code for jason response   (process request)
