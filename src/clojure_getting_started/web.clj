@@ -20,8 +20,8 @@
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
   [request]
-;;  (prn (get-in request [:resolvedQuery "yes, I have read the article"]))
-  (response {:speech "Turst me user, It works !!"
+  (def input_data (get-in request [:resolvedQuery "yes, I have read the article"]))
+  (response {:speech input_data
              :displayText "Turst me user, It works !!"}))
 ;;  (response "Uploaded user.")
 
