@@ -39,8 +39,8 @@
   [request]
 ;;  (prn request)
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
-  (def input_data (get-in request [:body :result :resolveQuerry]))
-;;  (def input_data (get-in request [:body :timestamp]))
+;;  (def input_data (get-in request [:body :result :resolveQuerry]))
+  (def input_data (get-in request [:body :timestamp]))
 )
 ;;
 ;; hold on (def res_wo_json
@@ -79,7 +79,7 @@
 ;; response back working  
 ;; response back working  (def app
 ;; response back working    (wrap-json-response handler))
-;;
+
 ;; addition from example 2nd 
 ;;second example (defroutes app
 ;;second example   (GET "/camel" {{input :input} :params}
