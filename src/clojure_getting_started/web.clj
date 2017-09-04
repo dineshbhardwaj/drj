@@ -8,6 +8,7 @@
             [environ.core :refer [env]]
             [ring.middleware.json :refer [wrap-json-body]]
             [ring.middleware.json :refer [json-response]]
+            [ring.middleware.json :refer [json-body-request]]
             [ring.middleware.json :refer [wrap-json-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
@@ -37,14 +38,20 @@
 ;;    if you know aricle or not"
   [request]
 ;;  (prn request)
-  (def input_data (get-in request [:body "resolveQuerry"]))
-  (response {:speech input_data
-             :displayText "Turst me user, It works !!"})
+(if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
+  (def input_data (get-in request [:body "resolveQuerry"])))
+;;
+;; hold on (def res_wo_json
+;; hold on     (response {:speech input_data
+;; hold on                :displayText "Turst me user, It works !!"})
+;; hold on     )
+    (response {:speech input_data
+               :displayText "Turst me user, It works !!"})
 
-;; latter  (response {:speech input_data
-;; latter             :displayText "Turst me user, It works !!"})
-  ;;  (json-response response)
-  )
+  ;; latter  (response {:speech input_data
+  ;; latter             :displayText "Turst me user, It works !!"})
+  ;;  (json-response res_wo_json)
+    )
 
 ;;  (response "Uploaded user.")
 
