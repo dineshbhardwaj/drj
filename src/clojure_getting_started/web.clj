@@ -3,6 +3,7 @@
             [compojure.handler :refer [site]]
             [compojure.route :as route]
             [clojure.java.io :as io]
+;;            [myapp.web.routes    :as api]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [ring.middleware.json :refer [wrap-json-body]]
@@ -10,7 +11,9 @@
             [ring.middleware.json :refer [wrap-json-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
-            [camel-snake-kebab.core :as kebab]))
+            [camel-snake-kebab.core :as kebab])
+  (:import [org.eclipse.jetty.server.handler StatisticsHandler])
+  (:gen-class))
 
 (defn splash []
   {:status 200
@@ -18,27 +21,38 @@
    :body "Hello from Heroku"})
 
 
-;; not working(defn handler 
-;; not working;;   "generating different response depending on ans to 
-;; not working;;    if you know aricle or not"
-;; not working  [request]
-;; not working;;  (prn request)
-;; not working;;  (def input_data (get-in request [:body "resolveQuerry"]))
-;; not working  (response {:speech "hello"
-;; not working             :displayText "Turst me user, It works !!"})
-;; not working
-;; not working;; latter  (response {:speech input_data
-;; not working;; latter             :displayText "Turst me user, It works !!"})
-;; not working  ;;  (json-response response)
-;; not working  )
-;; not working
-;; not working;;  (response "Uploaded user.")
-;; not working
-;; not working
-;; not working(def app
-;; not working;;  (wrap-json-body handler {:keywords? true :bigdecimals true})
-;; not working  (wrap-json-response handler)
-;; not working                      )
+
+(defn conf
+  [server]
+  (let [stats-handler (StatisticsHandler.)
+        default-handler (.getHandler server)]
+    (.setHandler stats-handler default-handler)
+    (.setHandler server stats-handler)
+;;    (.setStopTimeout  server a-minute)
+    (.setStopAtShutdown server true)))
+
+
+(defn handler 
+;;   "generating different response depending on ans to 
+;;    if you know aricle or not"
+  [request]
+;;  (prn request)
+  (def input_data (get-in request [:body "resolveQuerry"]))
+  (response {:speech input_data
+             :displayText "Turst me user, It works !!"})
+
+;; latter  (response {:speech input_data
+;; latter             :displayText "Turst me user, It works !!"})
+  ;;  (json-response response)
+  )
+
+;;  (response "Uploaded user.")
+
+
+(def app
+;;  (wrap-json-body handler {:keywords? true :bigdecimals true})
+  (wrap-json-response handler)
+                      )
 
 ;;(defn handler [request]
 ;;;;  (response {:displayText "Bar"}))
@@ -49,44 +63,44 @@
 
 ;;(load-file "/Users/Apple/clojure-getting-started/src/clojure_getting_started/response.clj")
 
-;; was working (defn handler [request]
-;; was working ;;  (response {:displayText "Bar"}))
-;; was working   (response {:speech "Turst me Deepak, It works !!"
-;; was working              :displayText "Turst me Deepak, It works !!"}))
-;; was working 
-;; was working (def app
-;; was working   (wrap-json-response handler))
+;; response back working  (defn handler [request]
+;; response back working  ;;  (response {:displayText "Bar"}))
+;; response back working    (response {:speech "Turst me Deepak, It works !!"
+;; response back working               :displayText "Turst me Deepak, It works !!"}))
+;; response back working  
+;; response back working  (def app
+;; response back working    (wrap-json-response handler))
 ;;
 ;; addition from example 2nd 
-;;(defroutes app
-;;  (GET "/camel" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->CamelCase input)})
-;;  (GET "/snake" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->snake_case input)})
-;;  (GET "/kebab" {{input :input} :params}
-;;       {:status 200
-;;        :headers {"Content-Type" "text/plain"}
-;;        :body (kebab/->kebab-case input)})
-;;  (GET "/" []
-;;       (splash))
-;;  (ANY "*" []
-;;       (route/not-found (slurp (io/resource "404.html")))))
+;;second example (defroutes app
+;;second example   (GET "/camel" {{input :input} :params}
+;;second example        {:status 200
+;;second example         :headers {"Content-Type" "text/plain"}
+;;second example         :body (kebab/->CamelCase input)})
+;;second example   (GET "/snake" {{input :input} :params}
+;;second example        {:status 200
+;;second example         :headers {"Content-Type" "text/plain"}
+;;second example         :body (kebab/->snake_case input)})
+;;second example   (GET "/kebab" {{input :input} :params}
+;;second example        {:status 200
+;;second example         :headers {"Content-Type" "text/plain"}
+;;second example         :body (kebab/->kebab-case input)})
+;;second example   (GET "/" []
+;;second example        (splash))
+;;second example   (ANY "*" []
+;;second example        (route/not-found (slurp (io/resource "404.html")))))
 
 ;; original example
-(defroutes app
-  (GET "/" []
-       (splash))
-  (ANY "*" []
-       (route/not-found (slurp (io/resource "404.html")))))
+;; first example (defroutes app
+;; first example   (GET "/" []
+;; first example        (splash))
+;; first example   (ANY "*" []
+;; first example        (route/not-found (slurp (io/resource "404.html")))))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
-    (jetty/run-jetty (site #'app) {:port port :join? false})))
+    (jetty/run-jetty (site #'app) {:port port :join? false :configurator conf})))
 
 ;; For interactive development:
 ;; (.stop server)
-;; (def server (-main))
+(defonce server (clojure-getting-started.web/-main))
