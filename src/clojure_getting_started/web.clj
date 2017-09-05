@@ -54,7 +54,7 @@
 ;;    (:speech   (json/parse-string (get-in request [:body])))
 ;;   (get-in request [:body])
 ;;(json/read-str  (get-in request [:body]) {:keywords? true :bigdecimals true})
-(get  (json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") "data_1")
+(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
  )
 )
 
@@ -66,7 +66,7 @@
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
 ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
 ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-  (def input_data (get  (json/decode (get-in request [:body :results])) "resolvedQuerry")))
+  (def input_data (get  (get  (json/decode (get-in request [:body])) "result") "resolvedQuerry"))) 
 ;;
 ;; hold on (def res_wo_json
 ;; hold on     (response {:speech input_data
