@@ -76,7 +76,8 @@
 ;; hold on     )
 
 
-(def input_data (serialize (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body]) ,))
+(def input_data (serialize (json-body-request request {:keywords? true :bigdecimals true}) ,))
+;;(def input_data (serialize (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body]) ,))
  ;;(def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
 
 
