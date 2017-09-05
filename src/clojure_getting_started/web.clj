@@ -59,7 +59,7 @@
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
 ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
 ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-  (def input_data (get  (json/decode (get-in request [:body "result"])) "resolvedQuerry")))
+  (def input_data  (get-in request [:body "result" "resolvedQuerry"])))
 ;;  (def input_data (get  (get  (json/decode (get-in request [:body :result])) "result") "resolvedQuerry")) 
 ;;
 ;; hold on (def res_wo_json
