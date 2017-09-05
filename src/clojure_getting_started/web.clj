@@ -42,15 +42,19 @@
                               :data_1 { :data_2 "hello" :data_3 "got"}
                               :displayText "Turst me user, It works !!"}))
   (def json_resp_data  (json-response resp_data  {}))
-  (if-let [request (json-body-request json_resp_data {:keywords? true :bigdecimals true} )]
-    ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
-    ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-;;    (:speech   (json/parse-string (get-in request [:body])))
-;;   (get-in request [:body])
- (get (json/decode (get-in request [:body])) "data_1")
-;;(json/decode  (get-in request [:body]) {:keywords? true :bigdecimals true})
-;;(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
+  (if-let [request (json-params-request json_resp_data {:bigdecimals true} )]
+;;request
+    (get (json/decode (get-in request [:body])) "data_1")
  )
+;; older code   (if-let [request (json-body-request json_resp_data {:keywords? true :bigdecimals true} )]
+;; older code     ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
+;; older code     ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
+;; older code ;;    (:speech   (json/parse-string (get-in request [:body])))
+;; older code ;;   (get-in request [:body])
+;; older code  (get (json/decode (get-in request [:body])) "data_1")
+;; older code ;;(json/decode  (get-in request [:body]) {:keywords? true :bigdecimals true})
+;; older code ;;(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
+;; older code  )
 )
 
 (defn handler 
@@ -68,8 +72,8 @@
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
-;;  (def input_data (get (get (json/decode (get-in request (json-body-request request {:keywords? true :bigdecimals true}) :body)) "result") "resolveQuerry"))
- (def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
+  (def input_data (get (get (json/decode (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body])) "result") "resolveQuerry"))
+ ;;(def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
 
 
                (response {:speech input_data
