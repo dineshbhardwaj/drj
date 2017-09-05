@@ -3,6 +3,7 @@
             [compojure.handler :refer [site]]
             [compojure.route :as route]
             [clojure.java.io :as io]
+            [cheshire.core :as json]
 ;;            [myapp.web.routes    :as api]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
@@ -33,6 +34,30 @@
     (.setStopAtShutdown server true)))
 
 
+
+(defn json_converstion []
+;;  (get-in  (json-body-request (def-string) {:keywords? true :bigdecimals true}) [:body :lang])
+;;    (json-body-request (def-string) {:keywords? true :bigdecimals true}) 
+;;    (response {:speech input_data
+;;               :displayText "Turst me user, It works !!"})
+
+;;  (def resp_data   (response {:speech input_data 
+;;                              :data_1 { :data_2 "hello" :data_3 "got"}
+;;                              :displayText "Turst me user, It works !!"}))
+  (def resp_data   (response {:speech "input_data" 
+                              :data_1 { :data_2 "hello" :data_3 "got"}
+                              :displayText "Turst me user, It works !!"}))
+  (def json_resp_data  (json-response resp_data  {}))
+  (if-let [request (json-body-request json_resp_data {:keywords? true :bigdecimals true} )]
+    ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
+    ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
+;;    (:speech   (json/parse-string (get-in request [:body])))
+;;   (get-in request [:body])
+;;(json/read-str  (get-in request [:body]) {:keywords? true :bigdecimals true})
+(get  (json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") "data_1")
+ )
+)
+
 (defn handler 
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
@@ -41,20 +66,14 @@
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
 ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
 ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-  (def input_data (get-in request [:body :sessionId]))
-    )
+  (def input_data (get  (json/decode (get-in request [:body :results])) "resolvedQuerry")))
 ;;
 ;; hold on (def res_wo_json
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
-    (response {:speech input_data
-               :displayText "Turst me user, It works !!"})
-
-  ;; latter  (response {:speech input_data
-  ;; latter             :displayText "Turst me user, It works !!"})
-  ;;  (json-response res_wo_json)
-    )
+  (response {:speech input_data
+             :displayText "Turst me user, It works !!"}))
 
 ;;  (response "Uploaded user.")
 
