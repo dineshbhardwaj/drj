@@ -66,7 +66,7 @@
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
-  (def input_data (get (get (get  (json/decode request) "body") "result") "resolveQuerry"))
+  (def input_data (get (get (get-in request (json-body-request request {:keywords? true :bigdecimals true}) :body) "result") "resolveQuerry"))
 
 
                (response {:speech input_data
