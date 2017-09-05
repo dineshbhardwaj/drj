@@ -57,6 +57,8 @@
 ;; older code  )
 )
 
+  (defn serialize [m sep] (str (clojure.string/join sep (map (fn [[_ v]] v) m)) "\n"))
+
 (defn handler 
 ;;   "generating different response depending on ans to 
 ;;    if you know aricle or not"
@@ -73,7 +75,6 @@
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
 
-  (defn serialize [m sep] (str (clojure.string/join sep (map (fn [[_ v]] v) m)) "\n"))
 
 (def input_data (serialize (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body]) ,))
  ;;(def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
