@@ -39,9 +39,9 @@
   [request]
 ;;  (prn request)
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
-  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
+;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
 ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-;;  (def input_data (get-in request [:body :timestamp]))
+  (def input_data (get-in request [:body :timestamp]))
     )
 ;;
 ;; hold on (def res_wo_json
