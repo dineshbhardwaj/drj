@@ -57,7 +57,7 @@
 ;; older code  )
 )
 
-  (defn serialize [m sep] (str (clojure.string/join sep (map (fn [[_ v]] v) m)) "\n"))
+  (defn serialize [m sep] (str (clojure.string/join sep (map (fn [[v]] v) m)) ""))
 
 (defn handler 
 ;;   "generating different response depending on ans to 
@@ -76,7 +76,7 @@
 ;; hold on     )
 
 
-(def input_data (serialize (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result :resolvedQuerry]) ","))
+(def input_data (serialize (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]) ","))
 ;;(def input_data (serialize (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body]) ,)) 
  ;;(def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
 
