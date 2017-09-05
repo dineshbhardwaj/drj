@@ -72,7 +72,7 @@
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
-  (def input_data (get (json/decode (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))  "resolveQuerry"))
+  (def input_data (get (json/decode (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body  "result"]))  "resolveQuerry"))
  ;;(def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
 
 
