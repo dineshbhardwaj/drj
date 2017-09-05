@@ -10,6 +10,7 @@
             [ring.middleware.json :refer [wrap-json-body]]
             [ring.middleware.json :refer [json-response]]
             [ring.middleware.json :refer [json-body-request]]
+            [ring.middleware.json :refer [json-params-request]]
             [ring.middleware.json :refer [wrap-json-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
@@ -46,8 +47,9 @@
     ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
 ;;    (:speech   (json/parse-string (get-in request [:body])))
 ;;   (get-in request [:body])
-;;(json/read-str  (get-in request [:body]) {:keywords? true :bigdecimals true})
-(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
+ (get (json/decode (get-in request [:body])) "data_1")
+;;(json/decode  (get-in request [:body]) {:keywords? true :bigdecimals true})
+;;(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
  )
 )
 
@@ -66,7 +68,8 @@
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
-  (def input_data (get (get (get-in request (json-body-request request {:keywords? true :bigdecimals true}) :body) "result") "resolveQuerry"))
+;;  (def input_data (get (get (json/decode (get-in request (json-body-request request {:keywords? true :bigdecimals true}) :body)) "result") "resolveQuerry"))
+ (def input_data  (get-in request (json-params-request request { :bigdecimals true}) [:params "timestamp"]))
 
 
                (response {:speech input_data
