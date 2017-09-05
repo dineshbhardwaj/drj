@@ -36,14 +36,7 @@
 
 
 (defn json_converstion []
-;;  (get-in  (json-body-request (def-string) {:keywords? true :bigdecimals true}) [:body :lang])
-;;    (json-body-request (def-string) {:keywords? true :bigdecimals true}) 
-;;    (response {:speech input_data
-;;               :displayText "Turst me user, It works !!"})
 
-;;  (def resp_data   (response {:speech input_data 
-;;                              :data_1 { :data_2 "hello" :data_3 "got"}
-;;                              :displayText "Turst me user, It works !!"}))
   (def resp_data   (response {:speech "input_data" 
                               :data_1 { :data_2 "hello" :data_3 "got"}
                               :displayText "Turst me user, It works !!"}))
@@ -66,14 +59,16 @@
 (if-let [request (json-body-request request {:keywords? true :bigdecimals true} )]
 ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
 ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-  (def input_data (get  (get  (json/decode (get-in request [:body])) "result") "resolvedQuerry"))) 
+  (def input_data (get  (json/decode (get-in request [:body "result"])) "resolvedQuerry")))
+;;  (def input_data (get  (get  (json/decode (get-in request [:body :result])) "result") "resolvedQuerry")) 
 ;;
 ;; hold on (def res_wo_json
 ;; hold on     (response {:speech input_data
 ;; hold on                :displayText "Turst me user, It works !!"})
 ;; hold on     )
   (response {:speech input_data
-             :displayText "Turst me user, It works !!"}))
+             :displayText "Turst me user, It works !!"})
+)
 
 ;;  (response "Uploaded user.")
 
