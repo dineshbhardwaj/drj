@@ -79,7 +79,7 @@
 ;; worked wrong (def input_data   (str  (json-body-request (json-response (str (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))  {:keywords? true :bigdecimals true}) [:body :resolvedQuerry]  )  ))
 ;;(def input_data   (str  (get-in (json-body-request (json-response (str ":result" (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])) {}) {:keywords? true :bigdecimals true}) [:result :source]  ))  )
 ;;(def input_data   (str  (get-in (json-body-request (json-response (str ":result " (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])) {}) {:keywords? true :bigdecimals true}) [:result :source]  ))  )
-(def input_data  (str  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :lang])))
+(def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuerry)))
 ;;(def input_data  (str (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]) :source)))
 ;;(def input_data   (str (get-in (json/decode (json-body-request (json-response (str (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))  {:keywords? true :bigdecimals true}) [:body :resolvedQuerry]  )) :resolvedQuerry) ))
 ;;(def input_data (serialize (get-in  (json-body-request request {:keywords? true :bigdecimals true}) [:body]) ,)) 
