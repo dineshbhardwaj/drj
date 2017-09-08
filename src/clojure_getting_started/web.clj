@@ -17,44 +17,44 @@
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
-  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
-;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
+;;  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
 ;;  (if ())
   (response {:speech input_data
              :displayText "Turst me user, It works !!"})
   )
 
-;; latter (defn article-defination []
-;; latter   '(#"a.*an.*the" #"a.*the.*an"
-;; latter     #"an.*a.*the" #"an.*the.*a"
-;; latter     #"the.*an.*a" #"the.*a.*an")
-;; latter   )
+(defn article-defination []
+  '(#"a.*an.*the" #"a.*the.*an"
+    #"an.*a.*the" #"an.*the.*a"
+    #"the.*an.*a" #"the.*a.*an")
+  )
  
 
 ;; matching any of the string in list "find_string_list" in "big_string" 
-;; latter (defn match-string [big_string find_string_list] 
-;; latter   (loop [ list_len (- (count find_string_list) 1)]
-;; latter     (do (def cur_string (nth find_string_list list_len))
-;; latter         (println cur_string list_len)
-;; latter         (if (.contains big_string cur_string) 
-;; latter           true
-;; latter           (if (zero? list_len) 
-;; latter             false 
-;; latter             (recur (dec list_len))))))
-;; latter )
-;; latter 
-;; latter 
-;; latter ;; matching any of the regexp in list "find_string_list" in "big_string" 
-;; latter (defn match-regexp-string-list [big_string find_string_list] 
-;; latter   (loop [ list_len (- (count find_string_list) 1)]
-;; latter     (do (def cur_string (nth find_string_list list_len))
-;; latter         (println cur_string list_len)
-;; latter         (if (re-find cur_string big_string ) 
-;; latter           true
-;; latter           (if (zero? list_len) 
-;; latter             false 
-;; latter             (recur (dec list_len))))))
-;; latter )
+ (defn match-string [big_string find_string_list] 
+   (loop [ list_len (- (count find_string_list) 1)]
+     (do (def cur_string (nth find_string_list list_len))
+         (println cur_string list_len)
+         (if (.contains big_string cur_string) 
+           true
+           (if (zero? list_len) 
+             false 
+             (recur (dec list_len))))))
+ )
+ 
+ 
+ ;; matching any of the regexp in list "find_string_list" in "big_string" 
+ (defn match-regexp-string-list [big_string find_string_list] 
+   (loop [ list_len (- (count find_string_list) 1)]
+     (do (def cur_string (nth find_string_list list_len))
+         (println cur_string list_len)
+         (if (re-find cur_string big_string ) 
+           true
+           (if (zero? list_len) 
+             false 
+             (recur (dec list_len))))))
+ )
 
 (def app
   (wrap-json-response handler)
@@ -84,7 +84,6 @@
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
-;;    (jetty/run-jetty (site #'app) {:port port :join? false :configurator conf})
     (jetty/run-jetty (site #'app) {:port port :join? false})
 ))
 
