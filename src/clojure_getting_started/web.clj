@@ -20,7 +20,7 @@
 ;;  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
 ;;  (def input_context  (str   (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  ))
 ;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
-  (def input_data  (str  (count  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts))))
+  (def input_data  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
 ;;  (if ())
   (response {:speech input_data
              :displayText "Turst me user, It works !!"})
