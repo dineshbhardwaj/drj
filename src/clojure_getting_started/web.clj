@@ -3,86 +3,64 @@
             [compojure.handler :refer [site]]
             [compojure.route :as route]
             [clojure.java.io :as io]
-            [cheshire.core :as json]
-            ;;            [myapp.web.routes    :as api]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [ring.middleware.json :refer [wrap-json-body]]
-            [ring.middleware.json :refer [json-response]]
             [ring.middleware.json :refer [json-body-request]]
-            [ring.middleware.json :refer [json-params-request]]
-            [ring.middleware.json :refer [wrap-json-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.util.response :refer [response]]
-            [camel-snake-kebab.core :as kebab])
+            )
   (:import [org.eclipse.jetty.server.handler StatisticsHandler])
   (:gen-class))
-
-(defn splash []
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Hello from Heroku"})
-
-
-
-(defn conf
-  [server]
-  (let [stats-handler (StatisticsHandler.)
-        default-handler (.getHandler server)]
-    (.setHandler stats-handler default-handler)
-    (.setHandler server stats-handler)
-    ;;    (.setStopTimeout  server a-minute)
-    (.setStopAtShutdown server true)))
-
-
-
-;; not needed now (defn json_converstion []
-;; not needed now 
-;; not needed now   (def resp_data   (response {:speech "input_data" 
-;; not needed now                               :data_1 { :data_2 "hello" :data_3 "got"}
-;; not needed now                               :displayText "Turst me user, It works !!"}))
-;; not needed now   (def json_resp_data  (json-response resp_data  {}))
-;; not needed now   (if-let [request (json-params-request json_resp_data {:bigdecimals true} )]
-;; not needed now ;;request
-;; not needed now     (get (json/decode (get-in request [:body])) "data_1")
-;; not needed now  )
-;; not needed now ;; older code   (if-let [request (json-body-request json_resp_data {:keywords? true :bigdecimals true} )]
-;; not needed now ;; older code     ;;  (def input_data (get-in  (json-body-request (get-in request [:body :originalRequest]) {:keywords? true :bigdecimals true}) [:source]))
-;; not needed now ;; older code     ;;  (def input_data (get-in  (get-in request [:body :result]) [:resolveQuerry]))
-;; not needed now ;; older code ;;    (:speech   (json/parse-string (get-in request [:body])))
-;; not needed now ;; older code ;;   (get-in request [:body])
-;; not needed now ;; older code  (get (json/decode (get-in request [:body])) "data_1")
-;; not needed now ;; older code ;;(json/decode  (get-in request [:body]) {:keywords? true :bigdecimals true})
-;; not needed now ;; older code ;;(json/decode "{\"data_1\":{\"data_2\":\"hello\",\"data_3\":\"got\"},\"displayText\":\"Turst me user, It works !!\",\"speech\":\"input_data\"}") 
-;; not needed now ;; older code  )
-;; not needed now )
-
 
 (defn handler 
   ;;   "generating different response depending on ans to 
   ;;    if you know aricle or not"
   [request]
-  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+;;  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
+;;  (if ())
   (response {:speech input_data
              :displayText "Turst me user, It works !!"})
   )
 
+(defn article-defination []
+  '(#"a.*an.*the" #"a.*the.*an"
+    #"an.*a.*the" #"an.*the.*a"
+    #"the.*an.*a" #"the.*a.*an")
+  )
+ 
+
+;; matching any of the string in list "find_string_list" in "big_string" 
+(defn match-string [big_string find_string_list] 
+  (loop [ list_len (- (count find_string_list) 1)]
+    (do (def cur_string (nth find_string_list list_len))
+        (println cur_string list_len)
+        (if (.contains big_string cur_string) 
+          true
+          (if (zero? list_len) 
+            false 
+            (recur (dec list_len))))))
+)
+
+
+;; matching any of the regexp in list "find_string_list" in "big_string" 
+(defn match-regexp-string-list [big_string find_string_list] 
+  (loop [ list_len (- (count find_string_list) 1)]
+    (do (def cur_string (nth find_string_list list_len))
+        (println cur_string list_len)
+        (if (re-find cur_string big_string ) 
+          true
+          (if (zero? list_len) 
+            false 
+            (recur (dec list_len))))))
+)
 
 (def app
-  ;;  (wrap-json-body handler {:keywords? true :bigdecimals true})
   (wrap-json-response handler)
   )
 
 
-;;(load-file "/Users/Apple/clojure-getting-started/src/clojure_getting_started/response.clj")
-
-;; response back working  (defn handler [request]
-;; response back working  ;;  (response {:displayText "Bar"}))
-;; response back working    (response {:speech "Turst me Deepak, It works !!"
-;; response back working               :displayText "Turst me Deepak, It works !!"}))
-;; response back working  
-;; response back working  (def app
-;; response back working    (wrap-json-response handler))
 
 ;; addition from example 2nd 
 ;;second example (defroutes app
@@ -103,12 +81,6 @@
 ;;second example   (ANY "*" []
 ;;second example        (route/not-found (slurp (io/resource "404.html")))))
 
-;; original example
-;; first example (defroutes app
-;; first example   (GET "/" []
-;; first example        (splash))
-;; first example   (ANY "*" []
-;; first example        (route/not-found (slurp (io/resource "404.html")))))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
