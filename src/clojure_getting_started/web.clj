@@ -52,9 +52,9 @@
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
       (def article_regexp   (article-def))
-      (if  (match-regexp-string-list input_data aritcle_defination_regexp)
+      (if  (match-regexp-string-list input_data article_regexp)
         (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
-        (def input_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " aritcle_deination_regexp ))))
+        (def input_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
     (def input_data (str "your context did not match expected. Input context is : " input_context )))
   (response {:speech input_data
              :displayText "Turst me user, It works !!"}))
