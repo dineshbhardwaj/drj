@@ -21,7 +21,7 @@
 ;;  (def input_context  (str   (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  ))
 ;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
   (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
-  (if (.contains str "{:name \"got_article_defination\", :parameters {}, :lifespan 5}" input_context)
+  (if (.contains "{:name \"got_article_defination\", :parameters {}, :lifespan 5}" input_context)
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
       (def aritcle_deination_regexp (article-defination))
