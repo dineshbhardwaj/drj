@@ -35,9 +35,7 @@
 
  (defn article-def
   []
-  (list #"a.*an.*the" #"a.*the.*an"
-  #"an.*a.*the" #"an.*the.*a"
-  #"the.*an.*a" #"the.*a.*an")
+  (list #"a.*an.*the" #"a.*the.*an"  #"an.*a.*the" #"an.*the.*a"  #"the.*an.*a" #"the.*a.*an")
   )
  
 
