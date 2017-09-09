@@ -24,11 +24,11 @@
   (if (.contains "hello" input_context)
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
-      (def aritcle_deination_regexp (article-defination))
-      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
-        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
-        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")
-      )
+;; latter      (def aritcle_deination_regexp (article-defination))
+;; latter      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
+;; latter        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
+;; latter        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")
+;; latter      )
     )
     (def input_data (str "your context did not match expected. Input context is : " input_context ))
   )
@@ -49,9 +49,10 @@
   )
 
 (defn article-defination []
-  '(#"a.*an.*the" #"a.*the.*an"
-    #"an.*a.*the" #"an.*the.*a"
-    #"the.*an.*a" #"the.*a.*an")
+  ;; latter orignal code'(#"a.*an.*the" #"a.*the.*an"
+  ;; latter orignal code  #"an.*a.*the" #"an.*the.*a"
+  ;; latter orignal code  #"the.*an.*a" #"the.*a.*an")
+  '(#"a.*an.*the"  )
   )
  
 
