@@ -54,7 +54,7 @@
     (do  
       (def article_regexp   (article-def))
       (if  (match-regexp-string-list input_data article_regexp)
-        (def output_data "your Article defination looks ok. We declared Article as a or an and the.")
+        (def output_data "your Article defination looks ok. Article is a or an and the.")
         (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
     (def output_data (str "your context did not match expected. Input context is : " input_context )))
   (response {:speech output_data
