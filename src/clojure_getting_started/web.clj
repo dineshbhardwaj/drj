@@ -13,6 +13,36 @@
   (:import [org.eclipse.jetty.server.handler StatisticsHandler])
   (:gen-class))
 
+;; matching any of the string in list "find_string_list" in "big_string" 
+;; note required (defn match-string [big_string find_string_list] 
+;; note required   (loop [ list_len (- (count find_string_list) 1)]
+;; note required     (do (def cur_string (nth find_string_list list_len))
+;; note required         (println cur_string list_len)
+;; note required         (if (.contains big_string cur_string) 
+;; note required           true
+;; note required           (if (zero? list_len) 
+;; note required             false 
+;; note required             (recur (dec list_len))))))
+;; note required )
+ 
+ 
+(defn article-def
+ []
+ (list #"a.*an.*the" #"a.*the.*an"  #"an.*a.*the" #"an.*the.*a"  #"the.*an.*a" #"the.*a.*an")
+ )
+
+ ;; matching any of the regexp in list "find_string_list" in "big_string" 
+ (defn match-regexp-string-list [big_string find_string_list] 
+   (loop [ list_len (- (count find_string_list) 1)]
+     (do (def cur_string (nth find_string_list list_len))
+         (println cur_string list_len)
+         (if (re-find cur_string big_string ) 
+           true
+           (if (zero? list_len) 
+             false 
+             (recur (dec list_len))))))
+ )
+
 (defn handler 
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
@@ -33,36 +63,8 @@
     (response {:speech input_data
                :displayText "Turst me user, It works !!"}))
 
- (defn article-def
-  []
-  (list #"a.*an.*the" #"a.*the.*an"  #"an.*a.*the" #"an.*the.*a"  #"the.*an.*a" #"the.*a.*an")
-  )
  
 
-;; matching any of the string in list "find_string_list" in "big_string" 
-;; note required (defn match-string [big_string find_string_list] 
-;; note required   (loop [ list_len (- (count find_string_list) 1)]
-;; note required     (do (def cur_string (nth find_string_list list_len))
-;; note required         (println cur_string list_len)
-;; note required         (if (.contains big_string cur_string) 
-;; note required           true
-;; note required           (if (zero? list_len) 
-;; note required             false 
-;; note required             (recur (dec list_len))))))
-;; note required )
- 
- 
- ;; matching any of the regexp in list "find_string_list" in "big_string" 
- (defn match-regexp-string-list [big_string find_string_list] 
-   (loop [ list_len (- (count find_string_list) 1)]
-     (do (def cur_string (nth find_string_list list_len))
-         (println cur_string list_len)
-         (if (re-find cur_string big_string ) 
-           true
-           (if (zero? list_len) 
-             false 
-             (recur (dec list_len))))))
- )
 
 (def app
   (wrap-json-response handler)
