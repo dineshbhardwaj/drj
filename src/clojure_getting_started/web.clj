@@ -47,8 +47,9 @@
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
-  (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
-  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
+  (def input_context  (str   (get map_result   :contexts)))
+  (def input_data  (str  (get  map_result  :resolvedQuery)))
   (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
     (do  
       (def article_regexp   (article-def))
