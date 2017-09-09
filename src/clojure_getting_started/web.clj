@@ -48,15 +48,15 @@
 ;;      if you know aricle or not"
   [request]
   (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
+  (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
   (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
     (do  
-      (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
       (def article_regexp   (article-def))
       (if  (match-regexp-string-list input_data article_regexp)
-        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
-        (def input_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
-    (def input_data (str "your context did not match expected. Input context is : " input_context )))
-  (response {:speech input_data
+        (def output_data "your Article defination looks ok. We declared Article as a or an and the.")
+        (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
+    (def output_data (str "your context did not match expected. Input context is : " input_context )))
+  (response {:speech output_data
              :displayText "Turst me user, It works !!"}))
 
  
