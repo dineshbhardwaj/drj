@@ -24,7 +24,7 @@
 ;;  (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
-  ;;    (def aritcle_deination_regexp (article-defination))
+      (def aritcle_deination_regexp (article-defination))
   ;;    (if  (match-regexp-string-list input_data aritcle_deination_regexp)
         (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
         (def input_data "your Article defination does not seems to be correct. Article as a or an and the."))
@@ -35,7 +35,7 @@
                :displayText "Turst me user, It works !!"}))
 
 (defn article-defination []
-`(#"a.*an.*the" #"a.*the.*an"
+  (list #"a.*an.*the" #"a.*the.*an"
   #"an.*a.*the" #"an.*the.*a"
   #"the.*an.*a" #"the.*a.*an")
   )
