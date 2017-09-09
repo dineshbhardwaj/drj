@@ -35,9 +35,7 @@
                :displayText "Turst me user, It works !!"}))
 
 (defn article-defination []
-  (list "a.*an.*the" "a.*the.*an"
-  "an.*a.*the" "an.*the.*a"
-  "the.*an.*a" "the.*a.*an")
+  (list "a.*an.*the" )
 ;; not required  (list #"a.*an.*the" #"a.*the.*an"
 ;; not required  #"an.*a.*the" #"an.*the.*a"
 ;; not required  #"the.*an.*a" #"the.*a.*an")
