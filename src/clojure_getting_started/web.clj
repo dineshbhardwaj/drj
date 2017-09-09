@@ -33,7 +33,6 @@
     )
     (def input_data (str "your context did not match expected. Input context is : " input_context ))
   )
-  (def hello "hello")
   (response {:speech input_data
              :displayText "Turst me user, It works !!"})
   )
