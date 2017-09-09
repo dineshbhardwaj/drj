@@ -21,7 +21,7 @@
 ;;  (def input_context  (str   (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  ))
 ;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
   (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
-  (if (.contains "{:name \"got_article_defination\", :parameters {}, :lifespan 5}" input_context)
+  (if (.contains "hello" input_context)
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
       (def aritcle_deination_regexp (article-defination))
@@ -32,6 +32,17 @@
     )
     (def input_data (str "your context did not match expected. Input context is : " input_context ))
   )
+;; latter orignal code  (if (.contains "{:name \"got_article_defination\", :parameters {}, :lifespan 5}" input_context)
+;; latter orignal code    (do  
+;; latter orignal code      (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+;; latter orignal code      (def aritcle_deination_regexp (article-defination))
+;; latter orignal code      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
+;; latter orignal code        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
+;; latter orignal code        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")
+;; latter orignal code      )
+;; latter orignal code    )
+;; latter orignal code    (def input_data (str "your context did not match expected. Input context is : " input_context ))
+;; latter orignal code  )
   (def hello "hello")
   (response {:speech input_data
              :displayText "Turst me user, It works !!"})
