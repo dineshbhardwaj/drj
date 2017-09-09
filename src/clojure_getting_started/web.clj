@@ -22,20 +22,16 @@
 ;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
   (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
 ;; latter  (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
-;; latter  (if (.contains input_context "hello")
-;; latter    (do  
-;; latter      (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
-;; latter      (def aritcle_deination_regexp (article-defination))
-;; latter orignal code      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
-;; latter orignal code        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
-;; latter orignal code        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")
-;; latter orignal code      )
-;; latter    )
-    (def input_data (str "your context did not match expected. Input context is : " input_context ))
-;;  )
+  (if (.contains input_context "hello")
+    (do  
+      (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
+      (def aritcle_deination_regexp (article-defination))
+      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
+        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
+        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")))
+  (def input_data (str "your context did not match expected. Input context is : " input_context )))
   (response {:speech input_data
-             :displayText "Turst me user, It works !!"})
-  )
+             :displayText "Turst me user, It works !!"}))
 
 (defn article-defination []
 '(#"a.*an.*the" #"a.*the.*an"
