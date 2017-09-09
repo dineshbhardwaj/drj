@@ -21,10 +21,10 @@
 ;;  (def input_context  (str   (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  ))
 ;;  (def input_context  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
   (def input_context  (str   (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :contexts)))
-  (if (.contains "{:name \"got_article_defination\", :parameters {}, :lifespan 5}" input_context)
+  (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
     (do  
       (def input_data  (str  (get  (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result])  :resolvedQuery)))
-;; latter orignal code      (def aritcle_deination_regexp (article-defination))
+      (def aritcle_deination_regexp (article-defination))
 ;; latter orignal code      (if  (match-regexp-string-list input_data aritcle_deination_regexp)
 ;; latter orignal code        (def input_data "your Article defination looks ok. We declared Article as a or an and the.")
 ;; latter orignal code        (def input_data "your Article defination does not seems to be correct. Article as a or an and the.")
