@@ -45,13 +45,14 @@
 
 (defn get_output_data 
 [input_context input_data]
-  (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
-    (do  
-      (def article_regexp   (article-def))
-      (if  (match-regexp-string-list input_data article_regexp)
-        (def output_data "your Article defination looks ok. Article is a or an and the.")
-        (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
-    (def output_data (str "your context did not match expected. Input context is : " input_context )))
+  (cond
+   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
+   (do  
+     (def article_regexp   (article-def))
+     (if  (match-regexp-string-list input_data article_regexp)
+       (def output_data "your Article defination looks ok. Article is a or an and the.")
+       (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
+   :else (def output_data (str "your context did not match expected. Input context is : " input_context )))
 output_data
 )
 
