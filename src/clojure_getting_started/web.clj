@@ -43,13 +43,8 @@
              (recur (dec list_len))))))
  )
 
-(defn handler 
-;;     "generating different response depending on ans to 
-;;      if you know aricle or not"
-  [request]
-  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
-  (def input_context  (str   (get map_result   :contexts)))
-  (def input_data  (str  (get  map_result  :resolvedQuery)))
+(defn get_output_data 
+[input_context input_data]
   (if (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
     (do  
       (def article_regexp   (article-def))
@@ -57,7 +52,17 @@
         (def output_data "your Article defination looks ok. Article is a or an and the.")
         (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
     (def output_data (str "your context did not match expected. Input context is : " input_context )))
-  (response {:speech output_data
+output_data
+)
+
+(defn handler 
+;;     "generating different response depending on ans to 
+;;      if you know aricle or not"
+  [request]
+  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
+  (def input_context  (str   (get map_result   :contexts)))
+  (def input_data  (str  (get  map_result  :resolvedQuery)))
+  (response {:speech (get_output_data input_context input_data) 
              :displayText "Turst me user, It works !!"}))
 
  
