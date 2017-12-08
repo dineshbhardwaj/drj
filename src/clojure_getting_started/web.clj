@@ -52,7 +52,7 @@
   [input_context input_data]
   (def output_data "hello")
   (cond
-   (.contains input_context "play some song")
+   (.contains input_context "son")
    (do
      (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")))
 ;; older for context  (cond
