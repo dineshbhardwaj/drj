@@ -68,7 +68,7 @@ output_data
   (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
   (def map_result_str (str map_result))
   (def input_context  (str   (get map_result   :contexts)))
-  (def inpuheroku opent_data  (str  (get  map_result  :resolvedQuery)))
+  (def input_data  (str  (get  map_result  :resolvedQuery)))
   (response {:speech "trust me it works"
              :displayText "turst me it works"}))
 ;;             :displayText "Turst me user, It works !!"}))
