@@ -52,9 +52,14 @@
   [input_context input_data]
   (def output_data "hello")
   (cond
-   (.contains input_data "song")
+   (.contains input_data "play")
    (do
-     (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")))
+     (if (re-find "tera song" input_string) 
+       (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")
+       (if (re-find "bina song" input_string)  
+         (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/bina.mp3\"> didn't get your MP3 audio file </audio> </speak>")
+         (if (re-find "kyonki song" input_string)  
+           (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/kyonki.mp3\"> didn't get your MP3 audio file </audio> </speak>"))))))
 ;; older for context  (cond
 ;; older for context   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
 ;; older for context   (do  
