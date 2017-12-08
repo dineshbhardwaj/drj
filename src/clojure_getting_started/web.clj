@@ -70,7 +70,7 @@ output_data
   (def input_context  (str   (get map_result   :contexts)))
   (def inpuheroku opent_data  (str  (get  map_result  :resolvedQuery)))
   (response {:speech "trust me it works"
-             :displayText map_result_str}))
+             :displayText "turst me it works"}))
 ;;             :displayText "Turst me user, It works !!"}))
 ;;  (response {:speech (get_output_data input_context input_data) 
 ;;             :displayText "Turst me user, It works !!"}))
