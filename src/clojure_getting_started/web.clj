@@ -49,7 +49,8 @@
  )
 
 (defn get_output_data 
-[input_context input_data]
+  [input_context input_data]
+  (def output_data "hello")
   (cond
    (.contains input_context "play some song")
    (do
