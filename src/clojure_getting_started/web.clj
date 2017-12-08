@@ -51,13 +51,17 @@
 (defn get_output_data 
 [input_context input_data]
   (cond
-   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
-   (do  
-     (def article_regexp   (article-def))
-     (if  (match-regexp-string-list input_data article_regexp)
-       (def output_data "your Article defination looks ok. Article is a or an and the.")
-       (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
-   :else (def output_data (str "your context did not match expected. Input context is : " input_context )))
+   (.contains input_context "play some song")
+   (do
+     (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")))
+;; older for context  (cond
+;; older for context   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
+;; older for context   (do  
+;; older for context     (def article_regexp   (article-def))
+;; older for context     (if  (match-regexp-string-list input_data article_regexp)
+;; older for context       (def output_data "your Article defination looks ok. Article is a or an and the.")
+;; older for context       (def output_data (str  "your Article defination does not seems to be correct. input: "  input_data " regexp : " article_regexp ))))
+;; older for context   :else (def output_data (str "your context did not match expected. Input context is : " input_context )))
 output_data
 )
 
@@ -69,7 +73,7 @@ output_data
   (def map_result_str (str map_result))
   (def input_context  (str   (get map_result   :contexts)))
   (def input_data  (str  (get  map_result  :resolvedQuery)))
-  (response {:speech "trust me it works"
+  (response {:speech  (get_output_data input_context input_data) 
              :displayText "turst me it works"}))
 ;;             :displayText "Turst me user, It works !!"}))
 ;;  (response {:speech (get_output_data input_context input_data) 
