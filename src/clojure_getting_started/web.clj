@@ -54,11 +54,11 @@
   (cond
    (.contains input_data "play")
    (do
-     (if (.contains  input_string "tera song") 
+     (if (.contains  input_data "tera song") 
        (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-       (if (.contains  input_string "bina song")  
+       (if (.contains  input_data "bina song")  
          (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/bina.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-         (if (.contains input_string "kyonki song")  
+         (if (.contains input_data "kyonki song")  
            (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/kyonki.mp3\"> didn't get your MP3 audio file </audio> </speak>"))))))
 ;; older for context  (cond
 ;; older for context   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
