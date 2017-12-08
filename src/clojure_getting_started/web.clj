@@ -31,6 +31,11 @@
  (list #"a.*an.*the" #"a.*the.*an"  #"an.*a.*the" #"an.*the.*a"  #"the.*an.*a" #"the.*a.*an")
  )
 
+(defn article-defnation
+ []
+ [ "Article is a or an and the." "Examples are : "  "there is a cat in the room" "there is an elephant in the zoo" "I go to the gym everyday." ]
+ )
+
  ;; matching any of the regexp in list "find_string_list" in "big_string" 
  (defn match-regexp-string-list [big_string find_string_list] 
    (loop [ list_len (- (count find_string_list) 1)]
@@ -60,11 +65,15 @@ output_data
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
+  (setq request_val (json-body-request request {:keywords? true :bigdecimals true}))
   (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
   (def input_context  (str   (get map_result   :contexts)))
-  (def input_data  (str  (get  map_result  :resolvedQuery)))
-  (response {:speech (get_output_data input_context input_data) 
-             :displayText "Turst me user, It works !!"}))
+  (def inpuheroku opent_data  (str  (get  map_result  :resolvedQuery)))
+  (response {:speech request_val
+             :displayText request_val}))
+;;             :displayText "Turst me user, It works !!"}))
+;;  (response {:speech (get_output_data input_context input_data) 
+;;             :displayText "Turst me user, It works !!"}))
 
  
 
