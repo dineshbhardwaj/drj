@@ -54,11 +54,11 @@
   (cond
    (.contains input_data "play")
    (do
-     (if (.contains  input_data "tera song") 
+     (if (re-find  #"[tT]era.*song" input_data ) 
        (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-       (if (.contains  input_data "bina song")  
+       (if (re-find  input_data "[Bb][ei]+n[a]+ song")  
          (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/bina.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-         (if (.contains input_data "kyonki song")  
+         (if (re-find input_data "[Kk]yon[ ]*k[ei]+ song")  
            (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/kyonki.mp3\"> didn't get your MP3 audio file </audio> </speak>"))))))
 ;; older for context  (cond
 ;; older for context   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
