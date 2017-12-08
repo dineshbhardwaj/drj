@@ -65,11 +65,11 @@ output_data
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
-  (setq request_val (json-body-request request {:keywords? true :bigdecimals true}))
+  (setq request_val (str (json-body-request request {:keywords? true :bigdecimals true})))
   (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
   (def input_context  (str   (get map_result   :contexts)))
   (def inpuheroku opent_data  (str  (get  map_result  :resolvedQuery)))
-  (response {:speech request_val
+  (response {:speech "trust me it works"
              :displayText request_val}))
 ;;             :displayText "Turst me user, It works !!"}))
 ;;  (response {:speech (get_output_data input_context input_data) 
