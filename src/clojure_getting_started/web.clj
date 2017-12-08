@@ -58,7 +58,7 @@
        (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")
        (if (re-find   #"[Bb][ei]+n[a]+ song" input_data)  
          (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/bina.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-         (if (re-find #"[Kk]yon[ ]*k[ei]+ song" input_data)  
+         (if (re-find #"[Kk]yon[ ]*[kK][ei]+ song" input_data)  
            (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/kyonki.mp3\"> didn't get your MP3 audio file </audio> </speak>"))))))
 ;; older for context  (cond
 ;; older for context   (.contains input_context "{:name \"got_article_defination\", :parameters {}, :lifespan 5}")
