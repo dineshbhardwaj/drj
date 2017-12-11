@@ -56,7 +56,7 @@
    (do
      (if (re-find  #"[tT]era.*[sS]ong" input_data) 
        (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tera.mp3\"> didn't get your MP3 audio file </audio> </speak>")
-       (if (re-find   #"[tT]ujhse [Nn]araj.*[sS]ong" input_data)  
+       (if (re-find   #"[tT]ujhse [Nn]ara[jz].*[sS]ong" input_data)  
          (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/tujhse_naraaz_nahin_zindagi__male__-_masoom_songs_-__naseeruddin_shah_-_jugal_hansraj__-_filmigaane.mp3\"> didn't get your MP3 audio file </audio> </speak>")
          (if (re-find   #"[Bb][ei]+n[a]+.*[sS]ong" input_data)  
            (def output_data "<speak> <audio src=\"https://drj1.000webhostapp.com/bina.mp3\"> didn't get your MP3 audio file </audio> </speak>")
