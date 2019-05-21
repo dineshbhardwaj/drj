@@ -77,10 +77,10 @@ output_data
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
-  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
-  (def map_result_str (str map_result))
-  (def input_context  (str   (get map_result   :contexts)))
-  (def input_data  (str  (get  map_result  :resolvedQuery)))
+;;  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
+;;  (def map_result_str (str map_result))
+;;  (def input_context  (str   (get map_result   :contexts)))
+;;  (def input_data  (str  (get  map_result  :resolvedQuery)))
   (response {:success  "File successfully uploaded"
              :pass     "hello"}))
 ;; changing for android  (response {:speech  (get_output_data input_context input_data) 
