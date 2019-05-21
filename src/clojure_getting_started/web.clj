@@ -81,7 +81,8 @@ output_data
   (def map_result_str (str map_result))
   (def input_context  (str   (get map_result   :contexts)))
   (def input_data  (str  (get  map_result  :resolvedQuery)))
-  (response {:success  "File successfully uploaded"}))
+  (response {:success  "File successfully uploaded"
+             :pass     "hello"}))
 ;; changing for android  (response {:speech  (get_output_data input_context input_data) 
 ;; changing for android             :displayText "turst me it works"}))
 ;;             :displayText "Turst me user, It works !!"}))
