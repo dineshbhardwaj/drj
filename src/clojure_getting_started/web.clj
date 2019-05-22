@@ -77,6 +77,7 @@ output_data
 ;;     "generating different response depending on ans to 
 ;;      if you know aricle or not"
   [request]
+  (print "hello")
 ;;  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
 ;;  (def map_result_str (str map_result))
 ;;  (def input_context  (str   (get map_result   :contexts)))
