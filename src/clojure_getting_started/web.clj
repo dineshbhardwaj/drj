@@ -73,50 +73,50 @@
 output_data
 )
 
-(defn handler 
-;;     "generating different response depending on ans to 
-;;      if you know aricle or not"
-  [request]
-  (print "hello")
-;;  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
-;;  (def map_result_str (str map_result))
-;;  (def input_context  (str   (get map_result   :contexts)))
-;;  (def input_data  (str  (get  map_result  :resolvedQuery)))
-  (response {:success  "File successfully uploaded"
-             :pass     "hello"}))
-;; changing for android  (response {:speech  (get_output_data input_context input_data) 
-;; changing for android             :displayText "turst me it works"}))
-;;             :displayText "Turst me user, It works !!"}))
-;;  (response {:speech (get_output_data input_context input_data) 
-;;             :displayText "Turst me user, It works !!"}))
-
- 
-
-
-(def app
-  (wrap-json-response handler)
-  )
+;; latter (defn handler 
+;; latter ;;     "generating different response depending on ans to 
+;; latter ;;      if you know aricle or not"
+;; latter   [request]
+;; latter   (print "hello")
+;; latter ;;  (def map_result (get-in (json-body-request request {:keywords? true :bigdecimals true}) [:body :result]))
+;; latter ;;  (def map_result_str (str map_result))
+;; latter ;;  (def input_context  (str   (get map_result   :contexts)))
+;; latter ;;  (def input_data  (str  (get  map_result  :resolvedQuery)))
+;; latter   (response {:success  "File successfully uploaded"
+;; latter              :pass     "hello"}))
+;; latter ;; changing for android  (response {:speech  (get_output_data input_context input_data) 
+;; latter ;; changing for android             :displayText "turst me it works"}))
+;; latter ;;             :displayText "Turst me user, It works !!"}))
+;; latter ;;  (response {:speech (get_output_data input_context input_data) 
+;; latter ;;             :displayText "Turst me user, It works !!"}))
+;; latter 
+;; latter  
+;; latter 
+;; latter 
+;; latter (def app
+;; latter   (wrap-json-response handler)
+;; latter   )
 
 
 
 ;; addition from example 2nd 
-;;second example (defroutes app
-;;second example   (GET "/camel" {{input :input} :params}
-;;second example        {:status 200
-;;second example         :headers {"Content-Type" "text/plain"}
-;;second example         :body (kebab/->CamelCase input)})
-;;second example   (GET "/snake" {{input :input} :params}
-;;second example        {:status 200
-;;second example         :headers {"Content-Type" "text/plain"}
-;;second example         :body (kebab/->snake_case input)})
-;;second example   (GET "/kebab" {{input :input} :params}
-;;second example        {:status 200
-;;second example         :headers {"Content-Type" "text/plain"}
-;;second example         :body (kebab/->kebab-case input)})
-;;second example   (GET "/" []
-;;second example        (splash))
-;;second example   (ANY "*" []
-;;second example        (route/not-found (slurp (io/resource "404.html")))))
+ (defroutes app
+   (GET "/camel" {{input :input} :params}
+        {:status 200
+         :headers {"Content-Type" "text/plain"}
+         :body (kebab/->CamelCase input)})
+   (GET "/snake" {{input :input} :params}
+        {:status 200
+         :headers {"Content-Type" "text/plain"}
+         :body (kebab/->snake_case input)})
+   (GET "/kebab" {{input :input} :params}
+        {:status 200
+         :headers {"Content-Type" "text/plain"}
+         :body (kebab/->kebab-case input)})
+   (GET "/" []
+        (splash))
+   (ANY "*" []
+        (route/not-found (slurp (io/resource "404.html")))))
 
 
 (defn -main [& [port]]
